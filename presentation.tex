@@ -1,0 +1,100 @@
+% no notes
+\documentclass{beamer}
+% notes and slides
+%\documentclass[notes]{beamer}
+% notes only
+% \documentclass[notes=only]{beamer}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{multirow}
+\usepackage{multimedia}
+\usepackage{tikz}
+\usepackage{circuitikz}
+%answer from Qrrbrbirlbel for https://tex.stackexchange.com/questions/134067/circuitikz-wire-kink-thingy-when-wires-cross
+\tikzset{
+  declare function={% in case of CVS which switches the arguments of atan2
+    atan3(\a,\b)=ifthenelse(atan2(0,1)==90, atan2(\a,\b), atan2(\b,\a));},
+  kinky cross radius/.initial=+.125cm,
+  @kinky cross/.initial=+, kinky crosses/.is choice,
+  kinky crosses/left/.style={@kinky cross=-},kinky crosses/right/.style={@kinky cross=+},
+  kinky cross/.style args={(#1)--(#2)}{
+    to path={
+      let \p{@kc@}=($(\tikztotarget)-(\tikztostart)$),
+          \n{@kc@}={atan3(\p{@kc@})+180} in
+      -- ($(intersection of \tikztostart--{\tikztotarget} and #1--#2)!%
+             \pgfkeysvalueof{/tikz/kinky cross radius}!(\tikztostart)$)
+      arc [ radius     =\pgfkeysvalueof{/tikz/kinky cross radius},
+            start angle=\n{@kc@},
+            delta angle=\pgfkeysvalueof{/tikz/@kinky cross}180 ]
+      -- (\tikztotarget)}}}
+\usepackage{url}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{groupplots,dateplot}
+\usetikzlibrary{patterns,shapes.arrows}
+\usepackage{standalone}
+\usepackage{adjustbox}
+\usepackage{lmodern}
+\usepackage{pgfplots}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{multimedia}
+\usepackage{standalone}
+\usepackage{csquotes}
+
+
+\PassOptionsToPackage{american,ngerman}{babel} % change this to your language(s), main language last
+% Spanish languages need extra options in order to work with this template
+% \PassOptionsToPackage{spanish,es-lcroman}{babel}
+\usepackage{babel}
+
+\PassOptionsToPackage{%
+  backend=biber,bibencoding=utf8, %instead of bibtex
+  %backend=bibtex8,bibencoding=ascii,%
+  language=auto,%
+  style=numeric-comp,%
+  %style=authoryear-comp, % Author 1999, 2010
+  %bibstyle=authoryear,dashed=false, % dashed: substitute rep. author with ---
+  style=alphabetic,
+  sorting=nyt, % name, year, title
+  maxbibnames=10, % default: 3, et al.
+  %backref=true,%
+  %natbib=true % natbib compatibility mode (\citep and \citet still work)
+}{biblatex}
+\usepackage{biblatex}
+
+\addbibresource{bib.bib}
+
+\usetheme{metropolis}           % Use metropolis theme
+\setbeamertemplate{caption}[default]
+\title{Foundations of Machine Learning in Python}
+\date{\today}
+\institute{Uni Bonn}
+\author{the authors}
+
+\titlegraphic{\includegraphics[width=2.00cm]{UNI_Bonn_Logo_Standard_RZ.pdf}}
+\begin{document}
+    \maketitle
+
+    \begin{frame}
+    \frametitle{Overview} 
+    \tableofcontents
+
+    \note{TODO}
+    \end{frame}
+
+    \section{Section 1}
+    \begin{frame}{Slide 1}
+        \begin{figure}
+            \caption{caption}
+        \end{figure}
+    \note{TODO}
+    \end{frame}
+
+
+    \section{Section 2}
+    \begin{frame}{Frame 2}
+        TODO
+    \end{frame}
+
+\end{document}

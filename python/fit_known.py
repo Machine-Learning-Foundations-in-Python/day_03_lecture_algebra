@@ -19,6 +19,16 @@ if __name__ == "__main__":
     for i in range(0, len(b)):    
         A2[:, i] = x_axis2**i
 
-    plt.plot(x_axis2, A2@np.linalg.pinv(A1)@b)
+    alpha = 0.2
+    b_true = A2@np.linalg.pinv(A1)@b
+    b_noise = b_true + alpha*np.random.randn(point_no, 1)
+
+    plt.plot(x_axis2, b_true)
+    plt.plot(x_axis2, b_noise)
     plt.show()
+
+    # regularize to find the noise free solution.
+    U, S, V = np.linalg.svd(A2)
+    for i in range(point_no)
+        pass
     print('stop')

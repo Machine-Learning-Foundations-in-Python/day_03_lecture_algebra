@@ -1,7 +1,7 @@
 % no notes
-\documentclass{beamer}
+%\documentclass{beamer}
 % notes and slides
-%\documentclass[notes]{beamer}
+\documentclass[notes]{beamer}
 % notes only
 % \documentclass[notes=only]{beamer}
 \usepackage{graphicx} % Allows including images
@@ -10,23 +10,6 @@
 \usepackage{multimedia}
 \usepackage{tikz}
 \usepackage{circuitikz}
-%answer from Qrrbrbirlbel for https://tex.stackexchange.com/questions/134067/circuitikz-wire-kink-thingy-when-wires-cross
-\tikzset{
-  declare function={% in case of CVS which switches the arguments of atan2
-    atan3(\a,\b)=ifthenelse(atan2(0,1)==90, atan2(\a,\b), atan2(\b,\a));},
-  kinky cross radius/.initial=+.125cm,
-  @kinky cross/.initial=+, kinky crosses/.is choice,
-  kinky crosses/left/.style={@kinky cross=-},kinky crosses/right/.style={@kinky cross=+},
-  kinky cross/.style args={(#1)--(#2)}{
-    to path={
-      let \p{@kc@}=($(\tikztotarget)-(\tikztostart)$),
-          \n{@kc@}={atan3(\p{@kc@})+180} in
-      -- ($(intersection of \tikztostart--{\tikztotarget} and #1--#2)!%
-             \pgfkeysvalueof{/tikz/kinky cross radius}!(\tikztostart)$)
-      arc [ radius     =\pgfkeysvalueof{/tikz/kinky cross radius},
-            start angle=\n{@kc@},
-            delta angle=\pgfkeysvalueof{/tikz/@kinky cross}180 ]
-      -- (\tikztotarget)}}}
 \usepackage{url}
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
@@ -67,10 +50,10 @@
 
 \usetheme{metropolis}           % Use metropolis theme
 \setbeamertemplate{caption}[default]
-\title{Foundations of Machine Learning in Python}
+\title{Linear Algebra for Machine Learning in Python}
 \date{\today}
-\institute{Uni Bonn}
-\author{the authors}
+\institute{High Performance Computing and Analytics Lab}
+\author{Dr. Moritz Wolter}
 
 \titlegraphic{\includegraphics[width=2.00cm]{UNI_Bonn_Logo_Standard_RZ.pdf}}
 \begin{document}
@@ -79,22 +62,156 @@
     \begin{frame}
     \frametitle{Overview} 
     \tableofcontents
-
-    \note{TODO}
     \end{frame}
 
-    \section{Section 1}
-    \begin{frame}{Slide 1}
-        \begin{figure}
-            \caption{caption}
-        \end{figure}
-    \note{TODO}
+    \section{Introcution}
+    \begin{frame}{Motvating linear algebra}
+      TODO
     \end{frame}
 
+    \begin{frame}{Matrices}
+      $m,n$ is a matrix $\mathbf{A}$
+      \begin{align}
+        \mathbf{A} = \begin{pmatrix}
+          a_{11} & a_{12} & \dots & a_{1n} \\
+          a_{21} & a_{22} & \dots & a_{2n} \\
+          \vdots & \vdots &       & \vdots \\
+          a_{m1} & a_{m2} & \dots & a_{mn}
+        \end{pmatrix}
+      , a_{ij} \in \mathbb{R}.
+      \end{align}
+     \end{frame}
 
-    \section{Section 2}
-    \begin{frame}{Frame 2}
-        TODO
+
+    \section{Essential operations}
+    \begin{frame}{Addition}
+      TODO
     \end{frame}
+
+    \begin{frame}{Multiplication}
+      TODO
+    \end{frame}
+
+    \begin{frame}{Motivation of the determinant}
+      TODO
+    \end{frame}
+
+    \begin{frame}{Computing determinants in two or three dimensions}
+      The two dimensional case:
+      \begin{align}
+        \begin{vmatrix}
+          a_{11} & a_{12} \\
+          a_{21} & a_{22} \\
+        \end{vmatrix}
+        = a_{11} \cdot a_{22} - a_{12} \cdot a_{21} \\
+      \end{align}
+      Computing the determinant of a three dimensional matrix.
+      \begin{align}
+        \begin{vmatrix}
+          a_{11} & a_{12} & a_{13}  \\
+          a_{21} & a_{22} & a_{23}  \\
+          a_{31} & a_{32} & a_{33}
+        \end{vmatrix}
+        = a_{11} \cdot
+         \begin{vmatrix}
+          a_{21} & a_{23}   \\
+          a_{32} & a_{33}   \\
+         \end{vmatrix}  
+         -
+         a_{21} \cdot
+         \begin{vmatrix}
+          a_{12} & a_{13}   \\
+          a_{32} & a_{33}   \\
+         \end{vmatrix}  
+        +
+         a_{31} \cdot
+         \begin{vmatrix}
+          a_{12} & a_{13}   \\
+          a_{22} & a_{23}   \\
+         \end{vmatrix}  
+      \end{align}
+
+      \note{Draw the sign pattern on the board:
+      \begin{align}
+        \begin{vmatrix}
+          + & - & + & \dots \\
+          - & + & - &  \dots \\
+          + & - & + &  \dots \\
+          \vdots & \vdots & \vdots & \ddots \\
+        \end{vmatrix}        
+      \end{align}
+      The determinant can be expandend along any column as long as the sign pattern is respected.
+      }
+    \end{frame}
+
+    \begin{frame}{Determinants in n-dimensions}
+      \begin{align*}
+      \begin{vmatrix}
+        a_{11} & a_{21} & \dots & a_{1n} \\
+        a_{21} & a_{22} & \dots & a_{2n} \\
+        \vdots & \vdots &       & \vdots \\
+        a_{m1} & a_{m2} & \dots & a_{mn}
+      \end{vmatrix}
+    = a_{11} \begin{vmatrix}
+      a_{22} & \dots & a_{2n} \\
+      \vdots &        & \vdots \\
+      a_{m2} & \dots & a_{mn}
+    \end{vmatrix}
+    + a_{21} 
+    \begin{vmatrix}
+      a_{21} & \dots & a_{2n} \\
+      \vdots &        & \vdots \\
+      a_{m2} & \dots & a_{mn}
+    \end{vmatrix}
+    \\
+    - a_{m1}
+    \begin{vmatrix} 
+      a_{11} & \dots & a_{1n} \\
+      a_{21} & \dots & a_{2n} \\
+      \vdots &        & \vdots \\
+    \end{vmatrix}
+    \end{align*}
+    \end{frame}
+
+  \begin{frame}{The Transpose}
+      TODO
+  \end{frame}
+
+  \begin{frame}{The Inverse}
+    TODO
+  \end{frame}
+
+  \section{Linear curve fitting}
+    \begin{frame}{What is the best line connecting measurements?}
+    
+    \end{frame}
+
+    \begin{frame}{The Pseudoinverse}
+        \begin{align}
+          \mathbf{A}^{\dagger} = (\mathbf{A}^T\mathbf{A})^{-1}\mathbf{A}^T
+        \end{align}
+    \note{
+      Sometimes solving $\mathbf{A}\mathbf{x} + \mathbf{b} = 0$ is implossible.
+      One the board, derive:
+      \begin{align}
+        \min_x \dfrac{1}{2}|\mathbf{A}\mathbf{x} - \mathbf{b}|^2 \\
+      \end{align}
+      At the optimum we expect,
+      \begin{align}
+        0 &= \nabla_x \dfrac{1}{2}|\mathbf{A}\mathbf{x} - \mathbf{b}|^2 \\
+          &= \nabla_x \dfrac{1}{2}(\mathbf{A}\mathbf{x} - \mathbf{b})^T(\mathbf{A}\mathbf{x} - \mathbf{b}) \\
+          &= (\mathbf{A}\mathbf{x} - \mathbf{b})\mathbf{A}^T \\
+          &= \mathbf{A}^T\mathbf{A}\mathbf{x} - \mathbf{A}^T\mathbf{b} \\
+          \mathbf{A}^T\mathbf{b} &= \mathbf{A}^T\mathbf{A}\mathbf{x} \\
+          (\mathbf{A}^T\mathbf{A})^{-1}\mathbf{A}^T\mathbf{b} &= \mathbf{x}  
+      \end{align}
+    }
+    \end{frame}
+
+  \section{System dynamics, and dimensions}
+    \begin{frame}{Eigenvalues}
+      TODO
+  \end{frame}
+
 
 \end{document}

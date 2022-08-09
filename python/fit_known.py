@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
     b = np.array([0., 0.5, 1., 0.75, 1.5, 2., 0.])
-    # b = np.expand_dims(b, -1)
     x_axis = np.linspace(0, 1, num=7)
 
     A1 = np.zeros((7, len(b)))
@@ -24,9 +23,9 @@ if __name__ == "__main__":
     b_true = A2@np.linalg.pinv(A1)@b
     b_noise = b_true + alpha*np.random.randn(point_no)
 
-    # plt.plot(x_axis2, b_true)
-    # plt.plot(x_axis2, b_noise)
-    # plt.show()
+    plt.plot(x_axis2, b_true)
+    plt.plot(x_axis2, b_noise)
+    plt.show()
 
     A3 = np.zeros((point_no, point_no))
 

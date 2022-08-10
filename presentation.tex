@@ -70,7 +70,7 @@
     \end{frame}
 
     \begin{frame}{Matrices}
-      $m,n$ is a matrix $\mathbf{A}$
+      $\mathbf{A} \in \mathbb{R}^{m,n}$ is a real-valued Matrix with $m$ rows and $n$ columns.
       \begin{align}
         \mathbf{A} = \begin{pmatrix}
           a_{11} & a_{12} & \dots & a_{1n} \\
@@ -85,11 +85,43 @@
 
     \section{Essential operations}
     \begin{frame}{Addition}
-      TODO
+      To matrices $\mathbf{A} \in \mathbf{R}^{m,n}$ and $\mathbf{B} \in \mathbf{R}^{m,n}$ can be added by adding their elements.
+      \begin{align}
+        \mathbf{A} + \mathbf{B} =
+        \begin{pmatrix}
+            a_{11} + b_{11} & a_{12} + b_{12} & \dots & a_{1n} + b_{1n} \\
+            a_{21} + b_{21} & a_{22} + b_{22} & \dots & a_{2n} + b_{2n} \\
+            \vdots          & \vdots          & \ddots & \vdots         \\
+            a_{m1} + b_{m1} & a_{m2} + b_{m2} & \dots & a_{mn} + b_{mn}
+          \end{pmatrix}
+        \end{align}
     \end{frame}
 
     \begin{frame}{Multiplication}
+      Multiply $\mathbf{A} \in \mathbb{R}^{m,n}$ by $\mathbf{B} \in \mathbb{R}^{n,p}$ produces $\mathbf{C} \in \mathbb{R}^{m,p}$,
+      \begin{align}
+      \mathbf{A} \mathbf{B} = \mathbf{C}. 
+      \end{align}
+      To compute $\mathbf{C}$ the elements in the rows of $\mathbf{A}$ are multiplied with the column elements of $\mathbf{C}$ and the products added,
+      \begin{align}
+         c_{ik} = \sum_{j=1}^{m} a_{ij} \cdot b_{jk}.
+      \end{align}
+      \note{
+        Define on the board:
+        \begin{itemize}
+          \item Dot product $\mathbf{a} \cdot \mathbf{b} = a_1 b_1 + a_2 b_2 + \dots + a_n b_n$ for two vectors $\mathbf{a}, \mathbf{b} \in \mathbb{R}^n$.
+          \item Row times column view \cite{strang2009introduction}: 
+        \end{itemize}
+      }
+    \end{frame}
+
+    \begin{frame}{Matrix inverse}
       TODO
+    \end{frame}
+
+
+    \begin{frame}{The Transpose}
+      TODO: use an orthogonal matrix!
     \end{frame}
 
     \begin{frame}{Motivation of the determinant}
@@ -173,13 +205,6 @@
     \end{align*}
     \end{frame}
 
-  \begin{frame}{The Transpose}
-      TODO
-  \end{frame}
-
-  \begin{frame}{The Inverse}
-    TODO
-  \end{frame}
 
   \section{Linear curve fitting}
     \begin{frame}{What is the best line connecting measurements?}
@@ -208,10 +233,18 @@
     }
     \end{frame}
 
-  \section{System dynamics, and dimensions}
-    \begin{frame}{Eigenvalues}
+  \section{Regularization using eigen- oder singular values}
+  \begin{frame}{Eigenvalue-Decomposition}
       TODO
   \end{frame}
 
+  \begin{frame}{Singular-Value-Decomposition}
+    TODO
+  \end{frame}
+
+
+  \begin{frame}{Literature}
+    \printbibliography
+  \end{frame}
 
 \end{document}

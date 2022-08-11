@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 
 
 if __name__ == "__main__":
+    np.random.seed(0)
     b = np.array([0., 0.5, 1., 0.75, 1.5, 2., 0.])
     x_axis = np.linspace(0, 1, num=7)
 

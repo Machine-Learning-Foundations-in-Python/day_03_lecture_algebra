@@ -56,6 +56,14 @@
 \author{Dr. Moritz Wolter}
 
 \titlegraphic{\includegraphics[width=2.00cm]{UNI_Bonn_Logo_Standard_RZ.pdf}}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
 \begin{document}
     \maketitle
 
@@ -64,7 +72,7 @@
     \tableofcontents
     \end{frame}
 
-    \section{Introcution}
+    \section{Introduction}
     \begin{frame}{Motvating linear algebra}
       TODO
     \end{frame}
@@ -115,13 +123,93 @@
       }
     \end{frame}
 
-    \begin{frame}{Matrix inverse}
+    \begin{frame}{The identity matrix}
+      \begin{align}
+        \mathbf{I} = \begin{pmatrix}
+          1 & & & \\
+            &1& & \\
+            & & \ddots &\\
+            & & &1\\
+        \end{pmatrix}
+      \end{align}
+      \note{Demonstrate multiplication with the inverse by hand.
       TODO
+      }
+    \end{frame}
+
+    \begin{frame}{Matrix inverse}
+      The inverse Matrix $\mathbf{A}^{-1}$ undoes the effects of $\mathbf{A}$, or in mathematical notation,
+      \begin{align}
+        \mathbf{A}\mathbf{A}^{-1} = \mathbf{I}.
+      \end{align}
+      The process of computing the inverse is called gaussian elimination.
+      \note{
+        Example on the board:
+        \begin{align}
+          \mathbf{A} &= 
+          \begin{pmatrix}
+            2 & 0 \\
+            1 & 3
+          \end{pmatrix}
+          \rightsquigarrow 
+          \begin{pmatrix}[c c | c c]
+            2 & 0 & 1 & 0 \\
+            1 & 3 & 0 & 1\\ 
+          \end{pmatrix}
+          \rightsquigarrow
+          \begin{pmatrix}[c c | c c]
+            1 & 0 & \frac{1}{2} & 0 \\
+            1 & 3 & 0 & 1\\ 
+          \end{pmatrix} \\
+          &\rightsquigarrow
+          \begin{pmatrix}[c c | c c]
+            1 & 0 & \frac{1}{2} & 0 \\
+            0 & 3 & -\frac{1}{2} & 1\\ 
+          \end{pmatrix}
+          \rightsquigarrow
+          \begin{pmatrix}[c c | c c]
+            1 & 0 & \frac{1}{2} & 0 \\
+            0 & 1 & -\frac{1}{6} & \frac{1}{3}\\ 
+          \end{pmatrix}
+      \end{align}
+      Test the result:
+      \begin{align}
+          \begin{pmatrix}
+            2 & 0 \\
+            1 & 3 \\
+          \end{pmatrix}
+        \begin{pmatrix}
+          \frac{1}{2} & 0 \\
+          -\frac{1}{6} & \frac{1}{3}\\ 
+        \end{pmatrix}
+      = 
+        \begin{pmatrix}
+          2 \cdot \frac{1}{2} + 0 \cdot -\frac{1}{6} & 2 \cdot 0 + 0 \cdot \frac{1}{3}  \\
+          1 \cdot \frac{1}{2} + 3 \cdot -\frac{1}{6} & 0 \cdot 0 + 3 \cdot \frac{1}{3} 
+        \end{pmatrix}
+      =
+      \begin{pmatrix}
+        1 & 0 \\
+        0 & 1 \\ 
+      \end{pmatrix}
+      \end{align}
+      }
     \end{frame}
 
 
     \begin{frame}{The Transpose}
-      TODO: use an orthogonal matrix!
+      The transpose operation flips matrices along the diagonal, for example in $\mathbb{R}^2$,
+      \begin{align}
+        \begin{pmatrix}
+          a & b \\
+          c & d \\
+        \end{pmatrix}^T
+        =
+        \begin{pmatrix}
+          a & c \\
+          b & d \\
+        \end{pmatrix}
+      \end{align}
     \end{frame}
 
     \begin{frame}{Motivation of the determinant}
@@ -233,7 +321,7 @@
     }
     \end{frame}
 
-  \section{Regularization using eigen- oder singular values}
+  \section{Regularization}
   \begin{frame}{Eigenvalue-Decomposition}
       TODO
   \end{frame}

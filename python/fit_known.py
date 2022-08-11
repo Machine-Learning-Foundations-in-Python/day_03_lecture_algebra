@@ -1,4 +1,3 @@
-from cProfile import label
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -52,4 +51,3 @@ if __name__ == "__main__":
     plt.ylim(-1., 3.)
     plt.grid()
     plt.show()
-    print('stop')

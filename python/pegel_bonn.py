@@ -93,5 +93,4 @@ if __name__ == "__main__":
     plt.xlabel("Jahr")
     plt.show()
 
-
     print('done')

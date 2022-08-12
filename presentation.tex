@@ -73,7 +73,7 @@
     \end{frame}
 
     \section{Introduction}
-    \begin{frame}{Motvating linear algebra}
+    \begin{frame}{Motivating linear algebra}
       TODO
     \end{frame}
 
@@ -296,13 +296,51 @@
 
   \section{Linear curve fitting}
     \begin{frame}{What is the best line connecting measurements?}
-    
+      \begin{figure}
+      \centering
+      \includestandalone{./figures/noisy_line}
+      \end{figure}
     \end{frame}
 
-    \begin{frame}{The Pseudoinverse}
+    \begin{frame}{Problem Formulation}
+      A line has the form $cx + d$, with $c,x,d \in \mathbb{R}$. In matrix language we could ask for every point to be on the line,
+      \begin{align}
+        \begin{pmatrix}
+          1 & x_1 \\ 
+          1 & x_2 \\
+          1 & x_3 \\
+          \vdots  & \vdots \\ 
+          1 & x_n \\
+        \end{pmatrix}
+        \begin{pmatrix}
+          c \\ d \\
+        \end{pmatrix}
+        = 
+        \begin{pmatrix}
+          p_1 \\
+          p_2 \\
+          \vdots \\ 
+          p_n  
+        \end{pmatrix}.
+      \end{align}
+      We can treat polynomials as vectors, too! The coordinates populate the matrix rows in $\mathbf{A} \in \mathbb{R}^{n_p \times 2}$, and the coefficients
+      appear in $\mathbf{x} \in \mathbb{R}^{2}$, with the points we would like to model in $\mathbf{b} \in \mathbb{R}^{n_p}$.
+      The problem now appears in matrix form and can be solved using linear algebra!
+    \end{frame}
+
+    \begin{frame}{The Pseudoinverse \cite{strang2009introduction,deisenroth2020mathematics}}
+      The inverse we saw earlier only exsits for sqaure that is $n$ by $n$ matrices.
+      Nonsqaure $\mathbf{A}$ such as the one we just saw, require the pseudoinverse,
         \begin{align}
-          \mathbf{A}^{\dagger} = (\mathbf{A}^T\mathbf{A})^{-1}\mathbf{A}^T
+          \mathbf{A}^{\dagger} = (\mathbf{A}^T\mathbf{A})^{-1}\mathbf{A}^T .
         \end{align}
+      Sometimes solving $\mathbf{A}\mathbf{x} + \mathbf{b} = 0$ is implossible,
+      the pseudoinverse considers,
+        \begin{align}
+          \min_x \dfrac{1}{2}|\mathbf{A}\mathbf{x} - \mathbf{b}|^2 \\
+        \end{align}
+      instead. $\mathbf{A}^{\dagger} \mathbf{b} = \mathbf{x}$ yields the solution.
+
     \note{
       Sometimes solving $\mathbf{A}\mathbf{x} + \mathbf{b} = 0$ is implossible.
       One the board, derive:
@@ -321,15 +359,76 @@
     }
     \end{frame}
 
+    \begin{frame}{Linear regression}
+      \begin{figure}
+        \includestandalone{./figures/regression}
+      \end{figure}
+    \end{frame}
+
+    \begin{frame}{What about harder problems?}
+      \begin{figure}
+        \includestandalone{./figures/signal_complex}
+      \end{figure}
+    \end{frame}
+
+    \begin{frame}{Fitting higher oder polynomials}
+      \begin{align}
+        \underbrace{
+        \begin{pmatrix}
+          1       & x_1^1    & x_1^2  & \dots & x_1^m  \\ 
+          1       & x_2^1    & x_2^2  & \dots & x_2^m  \\
+          1       & x_3^1    & x_3^2  & \dots & x_3^m  \\
+          \vdots  & \vdots    & \vdots  & \ddots & \vdots \\ 
+          1       & x_n^1    & x_n^2  & \dots & x_n^m  \\
+        \end{pmatrix}
+        }_{\mathbf{A}}
+        \underbrace{
+        \begin{pmatrix}
+          c_1 \\ c_2 \\ \vdots \\ c_m  
+        \end{pmatrix}
+        }_{\mathbf{x}}
+        =
+        \underbrace{
+        \begin{pmatrix}
+          p_1 \\
+          p_2 \\
+          \vdots \\ 
+          p_n  
+        \end{pmatrix}
+        }_{\mathbf{b}}
+        .
+      \end{align}
+      As we saw for the linear regression $\mathbf{A}^{\dagger}\mathbf{b} = \mathbf{x}$
+      gives us the coefficients.
+    \end{frame}
+
+    \begin{frame}{Overfitting}
+      Below the solution for a polynomial of 7th degree, that is $m=7$.
+      \begin{figure}
+        \centering
+        \includestandalone[scale=.9]{./figures/overfitting}
+      \end{figure}
+      The noise took over! What now?
+    \end{frame}
+
   \section{Regularization}
   \begin{frame}{Eigenvalue-Decomposition}
-      TODO
+    \begin{align}
+      \mathbf{A} = \mathbf{S}\Lambda \mathbf{S}^{-1}
+    \end{align}
   \end{frame}
 
   \begin{frame}{Singular-Value-Decomposition}
-    TODO
+    \begin{align}
+      \mathbf{A} = \mathbf{U}\Sigma \mathbf{V}^T
+    \end{align}
   \end{frame}
 
+  \begin{frame}{Conclusion}
+    \begin{itemize}
+      \item True scientists know what linear can do for them!
+    \end{itemize}
+  \end{frame}
 
   \begin{frame}{Literature}
     \printbibliography

@@ -24,7 +24,9 @@
 \usepackage{multimedia}
 \usepackage{standalone}
 \usepackage{csquotes}
-
+\usepackage{hyperref} %links
+\usepackage{url}
+\usepackage{csquotes}
 
 \PassOptionsToPackage{american}{babel} % change this to your language(s), main language last
 % Spanish languages need extra options in order to work with this template
@@ -74,7 +76,12 @@
 
     \section{Introduction}
     \begin{frame}{Motivating linear algebra}
-      TODO
+      \begin{displayquote}
+        Même le feu est régi par les nombres.
+      \end{displayquote}
+      Fourier\footnote{Jean Baptiste Joseph Fourier (1768-1830)} studied the transmission of heat using tools that would later be called
+      an eigenvector-basis.
+      Why would he say something like this?
     \end{frame}
 
     \begin{frame}{Matrices}
@@ -412,21 +419,49 @@
     \end{frame}
 
   \section{Regularization}
-  \begin{frame}{Eigenvalue-Decomposition}
+
+  \begin{frame}{Motivation}
+    \begin{itemize}
+      \item Is there a way to fix the previous example?
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Eigenvalue-Decomposition \cite{strang2009introduction}}
+  Eigenvalues let us look into the heart of a sqaure system-matrix $\mathbf{A} \in \mathbb{R}^{n,n}$.
     \begin{align}
-      \mathbf{A} = \mathbf{S}\Lambda \mathbf{S}^{-1}
+      \mathbf{A} 
+      = \mathbf{S}\begin{pmatrix}
+        \lambda_1 & & & \\
+        & \lambda_2 & & \\
+        & & \ddots    & \\
+        & & & \lambda_n \\     
+      \end{pmatrix}
+      \mathbf{S}^{-1}
+      =\mathbf{S}\Lambda \mathbf{S}^{-1}
     \end{align}
   \end{frame}
 
-  \begin{frame}{Singular-Value-Decomposition}
+  \begin{frame}{Computing the Decomposition}
+
+  \end{frame}
+
+  \begin{frame}{Singular-Value-Decomposition \cite{strang2009introduction}}
+    Dealing with matrices which aren't sqaure:
     \begin{align}
       \mathbf{A} = \mathbf{U}\Sigma \mathbf{V}^T
     \end{align}
   \end{frame}
 
+  \begin{frame}{Regularized solution}
+    \begin{figure}
+      \includestandalone{./figures/regularized}
+    \end{figure}
+  \end{frame}
+
   \begin{frame}{Conclusion}
     \begin{itemize}
       \item True scientists know what linear can do for them!
+      %\footnote{Originally: "True Engineers know hat linear can do for them." \url{https://onderwijsaanbod.kuleuven.be/syllabi/e/H0M82AE.htm#activetab=doelstellingen_idp41632}}
     \end{itemize}
   \end{frame}
 

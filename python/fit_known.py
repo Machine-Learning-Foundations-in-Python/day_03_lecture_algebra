@@ -34,9 +34,9 @@ if __name__ == "__main__":
 
     # regularize to find the noise free solution.
     U, sigma, V = np.linalg.svd(A3)
-    plt.plot(x_axis2, b_noise)
+    plt.plot(x_axis2, b_noise, ".")
 
-    for scale in [1e-2, 1e-5, 0.]:
+    for scale in [1e-1, 1e-6, 1e-12]: #, 0.]:
         # x = np.zeros(point_no)
         # for i in range(point_no):
         #     f = sigma[i]**2 / (sigma[i]**2 + scale) 
@@ -51,3 +51,4 @@ if __name__ == "__main__":
     plt.ylim(-1., 3.)
     plt.grid()
     plt.show()
+    print('done')

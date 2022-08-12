@@ -19,7 +19,7 @@ if __name__ == "__main__":
         hour, minute = ts_time.split(":")
         datetime_list.append(datetime(
             int(year), int(month), int(day)))
-        if hour == ' 04':
+        if hour == ' 04' or hour == ' 05':
             keep_indices.append(idx)
 
     
@@ -53,7 +53,7 @@ if __name__ == "__main__":
     plt.show()
  
     zero = -xb[0]/xb[1]
-
+    print("zero:", datetime.fromtimestamp(zero))
 
     x_axis = np.linspace(0, 1, len(datetime_list))
     degree = 20
@@ -69,22 +69,28 @@ if __name__ == "__main__":
     plt.title("Rheinpegel bei Bonn")
     plt.show()
 
+    plt.plot(datetime_list, levels)
+
     U, sigma, V = np.linalg.svd(A4)
 
-    for scale in [1e-2, 1e-5, 0.]:
+    for scale in [1e-4, 1e-9, 0.]:
         # x = np.zeros(point_no)
         # for i in range(point_no):
         #     f = sigma[i]**2 / (sigma[i]**2 + scale) 
         #     x = x + f*((U[:,i].T @ b_noise)/sigma[i]) * V.T[:,i]  
         fVec = sigma**2 / (sigma**2 + scale)
         F = np.diag(fVec)
+        S = np.zeros((degree, len(levels)))
+        S[:degree, :degree] = np.diag(sigma**(-1))
         # x2 = np.sum(V.T @ np.diag(U.T @ b_noise / sigma)@F, 1) 
-        x_reg = V.T @ F @ (sigma**(-1))[..., None, :] @ U.T @ levels
+        x_reg = V.T @ F @ S @ U.T @ levels
 
         plt.plot(datetime_list, A4@x_reg, label=str(scale))
     plt.legend()
-    plt.ylim(-1., 3.)
-    plt.grid()
+    # plt.ylim(-1., 3.)
+    plt.title("Rheinpegel bei Bonn")
+    plt.ylabel("Pegel cm")
+    plt.xlabel("Jahr")
     plt.show()
 
 

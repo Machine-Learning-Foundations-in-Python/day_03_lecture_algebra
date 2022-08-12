@@ -423,7 +423,46 @@
   \begin{frame}{Motivation}
     \begin{itemize}
       \item Is there a way to fix the previous example?
+      \item To do so we start from a rather peculiar observation.
     \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Eigenvalues and Eigen-Vectors}
+    Multiply matrix $\mathbf{A}$ with vectors $\mathbf{x_1}$ and $\mathbf{x_2}$,
+    \begin{align}
+      \mathbf{A} = \begin{pmatrix}
+        1 & 4 \\
+        0 & 2 
+      \end{pmatrix},
+      \mathbf{x_1} = \begin{pmatrix}
+        1 \\ 0
+      \end{pmatrix},
+        \mathbf{x_2} = \begin{pmatrix}
+          4 \\
+          1
+     \end{pmatrix},
+    \end{align}
+    we observe
+    \begin{align}
+      \mathbf{A}\mathbf{x_1} = \begin{pmatrix}
+        1 \\ 0
+      \end{pmatrix},
+      \mathbf{A}\mathbf{x_2} = \begin{pmatrix}
+        8 \\ 2
+      \end{pmatrix}
+    \end{align}
+    Vector $\mathbf{x_1}$ has not changed! Vector $\mathbf{x_2}$ was multiplied by two.
+    In other words,
+    \begin{align}
+      \mathbf{A}\mathbf{x_1} = 1 \mathbf{x_1}, \mathbf{A}\mathbf{x_2} = 2 \mathbf{x_2} 
+    \end{align}
+  \end{frame}
+  \begin{frame}{Eigenvalues and Eigen-vectors}
+    Eigenvectors turn multiplication with a matrix into multiplication with a number,
+    \begin{align}
+      \mathbf{A}\mathbf{x} = \lambda \mathbf{x} .
+    \end{align}
+
   \end{frame}
 
   \begin{frame}{Eigenvalue-Decomposition \cite{strang2009introduction}}

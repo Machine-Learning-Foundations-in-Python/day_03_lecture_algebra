@@ -54,7 +54,7 @@
 \setbeamertemplate{caption}[default]
 \title{Linear Algebra for Machine Learning in Python}
 \date{\today}
-\institute{High Performance Computing and Analytics Lab, University of Bonn}
+\institute{High-Performance Computing and Analytics Lab, University of Bonn}
 \author{Moritz Wolter}
 
 \titlegraphic{\includegraphics[width=2.00cm]{UNI_Bonn_Logo_Standard_RZ.pdf}}
@@ -126,7 +126,11 @@
         \begin{itemize}
           \item Dot product $\mathbf{a} \cdot \mathbf{b} = a_1 b_1 + a_2 b_2 + \dots + a_n b_n$ for two vectors $\mathbf{a}, \mathbf{b} \in \mathbb{R}^n$.
           \item Row times column view \cite{strang2009introduction}: 
+            
         \end{itemize}
+        \centering
+        \includegraphics[width=.5\linewidth]{figures/Matrix_multiplication_diagram_2.png}
+        %Source: \url{https://en.wikipedia.org/wiki/Matrix_multiplication#/media/File:Matrix_multiplication_diagram_2.svg}
       }
     \end{frame}
 
@@ -239,7 +243,8 @@
     \begin{frame}{Motivation of the determinant}
       \begin{itemize}
         \item The determinant contains lots of information about a matrix in a single number.
-        \item When a Matrix has a zero determinant, it's inverse does not exist.
+        \item When a Matrix has a zero determinant, its inverse does not exist.
+        \item We require determinants to find eigenvalues by hand.
       \end{itemize}
     \end{frame}
 
@@ -261,7 +266,7 @@
         \end{vmatrix}
         = a_{11} \cdot
          \begin{vmatrix}
-          a_{21} & a_{23}   \\
+          a_{22} & a_{23}   \\
           a_{32} & a_{33}   \\
          \end{vmatrix}  
          -
@@ -277,18 +282,36 @@
           a_{22} & a_{23}   \\
          \end{vmatrix}  
       \end{align}
-
-      \note{Draw the sign pattern on the board:
+      \note{Example computation on the board:
       \begin{align}
-        \begin{vmatrix}
-          + & - & + & \dots \\
-          - & + & - &  \dots \\
-          + & - & + &  \dots \\
-          \vdots & \vdots & \vdots & \ddots \\
-        \end{vmatrix}        
+      \begin{vmatrix}
+          -1 & 0 & 0 \\
+           1 &-1 & 1 \\
+           1 & 0 &-1
+      \end{vmatrix}
+       &= -1 \cdot
+       \begin{vmatrix}
+        -1 & 1  \\
+         0 & -1 \\
+       \end{vmatrix}  
+       -
+       1 \cdot
+       \begin{vmatrix}
+        0 & 0  \\
+        0 & -1 \\
+       \end{vmatrix}  
+      +
+       1 \cdot
+       \begin{vmatrix}
+        0 & 0  \\
+        -1 & 1  \\
+       \end{vmatrix}  \\
+       &= (-1) \cdot ((-1) \cdot (-1) - 0 \cdot 1)) - \\
+       &\;\;\;\;\;  (0 \cdot (-1) - 0 \cdot 0) + 0 \cdot 1 -(-1) \cdot 0 \\
+       &= -1
       \end{align}
-      The determinant can be expanded along any column as long as the sign pattern is respected.
-      }
+
+    }
     \end{frame}
 
     \begin{frame}{Determinants in n-dimensions}
@@ -311,15 +334,33 @@
       a_{m2} & \dots & a_{mn}
     \end{vmatrix}
     \\
-    - a_{m1}
+    \dots 
+     a_{m1}
     \begin{vmatrix} 
       a_{11} & \dots & a_{1n} \\
       a_{21} & \dots & a_{2n} \\
       \vdots &        & \vdots \\
     \end{vmatrix}
     \end{align*}
+    \note{Draw the sign pattern on the board:
+    \begin{align}
+      \begin{vmatrix}
+        + & - & + & \dots \\
+        - & + & - &  \dots \\
+        + & - & + &  \dots \\
+        \vdots & \vdots & \vdots & \ddots \\
+      \end{vmatrix}        
+    \end{align}
+    The determinant can be expanded along any column as long as the sign pattern is respected.
+    }
     \end{frame}
 
+    \begin{frame}{Summary}
+      \begin{itemize}
+        \item We saw some of the most important operations in linear algebra.
+        \item Let's use these to do something useful next.
+      \end{itemize}
+    \end{frame}
 
   \section{Linear curve fitting}
     \begin{frame}{What is the best line connecting measurements?}
@@ -330,7 +371,7 @@
     \end{frame}
 
     \begin{frame}{Problem Formulation}
-      A line has the form $cx + d$, with $c,x,d \in \mathbb{R}$. In matrix language we could ask for every point to be on the line,
+      A line has the form $dx + c$, with $c,x,d \in \mathbb{R}$. In matrix language, we could ask for every point to be on the line,
       \begin{align}
         \begin{pmatrix}
           1 & x_1 \\ 
@@ -356,12 +397,12 @@
     \end{frame}
 
     \begin{frame}{The Pseudoinverse \cite{strang2009introduction,deisenroth2020mathematics}}
-      The inverse we saw earlier only exsits for sqaure that is $n$ by $n$ matrices.
-      Nonsqaure $\mathbf{A}$ such as the one we just saw, require the pseudoinverse,
+      The inverse exists for square or $n$ by $n$ matrices.
+      Nonsquare $\mathbf{A}$ such as the one we just saw, require the pseudoinverse,
         \begin{align}
           \mathbf{A}^{\dagger} = (\mathbf{A}^T\mathbf{A})^{-1}\mathbf{A}^T .
         \end{align}
-      Sometimes solving $\mathbf{A}\mathbf{x} + \mathbf{b} = 0$ is implossible,
+      Sometimes solving $\mathbf{A}\mathbf{x} + \mathbf{b} = 0$ is impossible,
       the pseudoinverse considers,
         \begin{align}
           \min_x \dfrac{1}{2}|\mathbf{A}\mathbf{x} - \mathbf{b}|^2 \\
@@ -430,12 +471,18 @@
     \end{frame}
 
     \begin{frame}{Overfitting}
-      Below the solution for a polynomial of 7th degree, that is $m=7$.
+      The figure below depicts the solution for a polynomial of 7th degree, that is $m=7$.
       \begin{figure}
         \centering
         \includestandalone[scale=.9]{./figures/overfitting}
       \end{figure}
-      The noise took over! What now?
+    \end{frame}
+
+    \begin{frame}{Summary}
+      \begin{itemize}
+        \item We saw how linear algebra lets us fit polynomials to curves. 
+        \item For the 7th degree polynomial the noise took over! What now?
+      \end{itemize}
     \end{frame}
 
   \section{Regularization}
@@ -486,13 +533,54 @@
     \begin{align}
       (\mathbf{A}\mathbf{x} - \lambda \mathbf{I}) \mathbf{x} = 0 \\
     \end{align}
-    The interestin solutions are those were $\mathbf{x} \neq 0$, which means
+    The interesting solutions are those were $\mathbf{x} \neq 0$, which means
     \begin{align}
       \det(\mathbf{A} - \lambda \mathbf{I}) = 0 
     \end{align}
 
   \note{On the board, compute the eigenvalues and vectors for the initial example.
-  TODO: write down.
+  \begin{align}
+  \mathbf{A}
+  = \begin{pmatrix}
+    1 & 4 \\
+    0 & 2 
+  \end{pmatrix}
+  \rightarrow 
+  \begin{vmatrix}
+    1- \lambda & 4 \\
+    0 & 2 - \lambda
+  \end{vmatrix}
+  = (1-\lambda)*(2-\lambda) - 0*4
+   = 0 \\
+  \rightarrow \lambda_1 = 1, \lambda_2 = 2 . \\
+  \begin{pmatrix}
+    1 - 1 & 4 \\
+    0 & 2 - 1 
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    0 & 4 \\
+    0 & 1 
+  \end{pmatrix}
+  \mathbf{x}_1 = 0
+  \rightarrow \mathbf{x}_1 = \begin{pmatrix}
+    p \\ 0 
+  \end{pmatrix} \text{ for } p \in \mathbb{R} \\
+  \begin{pmatrix}
+    1 - 2 & 4 \\
+    0 & 2 - 2 
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    -1 & 4 \\
+    0 & 0 
+  \end{pmatrix}
+  \mathbf{x}_1 = 0
+  \rightarrow \mathbf{x}_2 = \begin{pmatrix}
+    q \\ \frac{1}{4}q 
+  \end{pmatrix} \text{ for } q \in \mathbb{R}
+  \end{align}
+  \textit{Determinant not useful numerically, software packages use QR-Method.} 
     }
   \end{frame}
 
@@ -580,7 +668,7 @@
   \begin{frame}{Conclusion}
     \begin{itemize}
       \item True scientists know what linear can do for them!
-      %\footnote{Originally: "True Engineers know hat linear can do for them." \url{https://onderwijsaanbod.kuleuven.be/syllabi/e/H0M82AE.htm#activetab=doelstellingen_idp41632}}
+      %\footnote{Originally: "True Engineers know what linear can do for them." \url{https://onderwijsaanbod.kuleuven.be/syllabi/e/H0M82AE.htm#activetab=doelstellingen_idp41632}}
       \item Think about matrix shapes. If you are solving a problem, rule out all formulations where the shapes don't work.
       \item Regularization using the SVD is also known as Tikhonov regularization.
     \end{itemize}

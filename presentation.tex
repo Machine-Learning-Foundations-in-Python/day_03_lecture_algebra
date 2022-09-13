@@ -205,7 +205,7 @@
 
 
     \begin{frame}{The Transpose}
-      The transpose operation flips matrices along the diagonal, for example in $\mathbb{R}^2$,
+      The transpose operation flips matrices along the diagonal, for example, in $\mathbb{R}^2$,
       \begin{align}
         \begin{pmatrix}
           a & b \\
@@ -220,11 +220,14 @@
     \end{frame}
 
     \begin{frame}{Motivation of the determinant}
-      TODO
+      \begin{itemize}
+        \item The determinant contains lots of information about a matrix in a single number.
+        \item When a Matrix has a zero determinant, it's inverse does not exist.
+      \end{itemize}
     \end{frame}
 
     \begin{frame}{Computing determinants in two or three dimensions}
-      The two dimensional case:
+      The two-dimensional case:
       \begin{align}
         \begin{vmatrix}
           a_{11} & a_{12} \\
@@ -232,7 +235,7 @@
         \end{vmatrix}
         = a_{11} \cdot a_{22} - a_{12} \cdot a_{21} \\
       \end{align}
-      Computing the determinant of a three dimensional matrix.
+      Computing the determinant of a three-dimensional matrix.
       \begin{align}
         \begin{vmatrix}
           a_{11} & a_{12} & a_{13}  \\
@@ -378,7 +381,7 @@
       \end{figure}
     \end{frame}
 
-    \begin{frame}{Fitting higher oder polynomials}
+    \begin{frame}{Fitting higher order polynomials}
       \begin{align}
         \underbrace{
         \begin{pmatrix}
@@ -457,13 +460,25 @@
       \mathbf{A}\mathbf{x_1} = 1 \mathbf{x_1}, \mathbf{A}\mathbf{x_2} = 2 \mathbf{x_2} 
     \end{align}
   \end{frame}
-  \begin{frame}{Eigenvalues and Eigen-vectors}
+  \begin{frame}{Eigenvalues and Eigenvectors}
     Eigenvectors turn multiplication with a matrix into multiplication with a number,
     \begin{align}
       \mathbf{A}\mathbf{x} = \lambda \mathbf{x} .
     \end{align}
+    Subtracting $\lambda \mathbf{x}$ leads to,
+    \begin{align}
+      (\mathbf{A}\mathbf{x} - \lambda \mathbf{I}) \mathbf{x} = 0 \\
+    \end{align}
+    The interestin solutions are those were $\mathbf{x} \neq 0$, which means
+    \begin{align}
+      \det(\mathbf{A} - \lambda \mathbf{I}) = 0 
+    \end{align}
 
+  \note{On the board, compute the eigenvalues and vectors for the initial example.
+  TODO: write down.
+    }
   \end{frame}
+
 
   \begin{frame}{Eigenvalue-Decomposition \cite{strang2009introduction}}
   Eigenvalues let us look into the heart of a sqaure system-matrix $\mathbf{A} \in \mathbb{R}^{n,n}$.
@@ -476,19 +491,67 @@
         & & & \lambda_n \\     
       \end{pmatrix}
       \mathbf{S}^{-1}
-      =\mathbf{S}\Lambda \mathbf{S}^{-1}
+      =\mathbf{S}\Lambda \mathbf{S}^{-1},
     \end{align}
-  \end{frame}
-
-  \begin{frame}{Computing the Decomposition}
-
+    with $\mathbf{S} \in \mathbb{R}^{n,n}$ and $\Lambda \in \mathbb{C}^{n,n}$. 
   \end{frame}
 
   \begin{frame}{Singular-Value-Decomposition \cite{strang2009introduction}}
-    Dealing with matrices which aren't sqaure:
+    What about a non-square matrix $\mathbf{A} \in \mathbb{R}^{n,m}$? Idea:
     \begin{align}
-      \mathbf{A} = \mathbf{U}\Sigma \mathbf{V}^T
+      \mathbf{A^T}\mathbf{A} = \mathbf{V}
+      \begin{pmatrix}
+      \sigma_1^2 & & \\
+      & \ddots & & \\
+      & & \sigma_n^2   
+      \end{pmatrix}
+      \mathbf{V}^{-1},
+      \mathbf{A}\mathbf{A^T} = \mathbf{U}
+      \begin{pmatrix}
+      \sigma_1^2 & & \\
+      & \ddots & & \\
+      & & \sigma_n^2   
+      \end{pmatrix}
+      \mathbf{U}^{-1}.
     \end{align}
+    Using the eigenvectors of the $\mathbf{A}^T\mathbf{A}$ and $\mathbf{A}\mathbf{A}^T$ we construct, 
+    \begin{align}
+      \mathbf{A} = \mathbf{U}\Sigma \mathbf{V}^T,
+    \end{align}
+    with $\mathbf{A} \in \mathbb{R}^{m,n}$, $\mathbf{U} \in \mathbb{R}^{m,m}$, $\Sigma \in \mathbb{R}^{m,n}$ and $\mathbf{V} \in \mathbb{R}^{n,n}$ .
+  \end{frame}
+
+  \begin{frame}{Singular values and matrix inversion \cite{golub1965calculating}}
+    \begin{align}
+      \mathbf{A}^{\dagger} = \mathbf{V} \Sigma^\dagger \mathbf{U}^T = \mathbf{V} \begin{pmatrix}
+      \sigma_1^{-1} & & \\
+      & \ddots &  \\
+      & & \sigma_m^{-1} \\ \hline 
+      & 0 & \\
+      \end{pmatrix} \mathbf{U}^T
+    \end{align}
+  \end{frame}
+
+  \begin{frame}{Regularization via Singular Value Filtering}
+  Originally we had a problem computing $\mathbf{A}^{\dagger}\mathbf{b} = \mathbf{x}$.
+  To solve it, we compute,
+  \begin{align} \label{eq:reg}
+      \mathbf{x}_{reg} = \sum_{i=1}^{n} f_i \frac{\mathbf{u}_i^T b}{\sigma_i}\mathbf{v_i}
+  \end{align}
+  The filter factors are computed using $f_i = \sigma_i^2 / (\sigma_i^2 + \epsilon)$.
+  Singular values $\sigma_i < \epsilon$ are filtered.
+  Expressing equation \ref{eq:reg} using matrix notation:
+  \begin{align}
+    \mathbf{x}_{reg}= \mathbf{V} \mathbf{F} \begin{pmatrix}
+      \sigma_1^{-1} & & & \\
+      &  \ddots & \\
+      &  & \sigma_m^{-1} \\ \hline
+      & 0 &
+    \end{pmatrix}
+    \mathbf{U}^T \mathbf{b}_{noise}
+  \end{align}
+  with $\mathbf{A} \in \mathbb{R}^{m,n}$, $\mathbf{U} \in \mathbb{R}^{m,m}$, $\mathbf{V} \in \mathbb{R}^{n,n}$, $\mathbf{F} \in \mathbb{R}^{m,m}$, $\Sigma^{\dagger} \in \mathbb{R}^{n,m}$
+  and $\mathbf{b} \in \mathbb{R}^{n,1}$.
   \end{frame}
 
   \begin{frame}{Regularized solution}
@@ -501,6 +564,8 @@
     \begin{itemize}
       \item True scientists know what linear can do for them!
       %\footnote{Originally: "True Engineers know hat linear can do for them." \url{https://onderwijsaanbod.kuleuven.be/syllabi/e/H0M82AE.htm#activetab=doelstellingen_idp41632}}
+      \item Think about matrix shapes. If you are solving a problem, rule out all formulations where the shapes don't work.
+      \item Regularization using the SVD is also known as Tikhonov regularization.
     \end{itemize}
   \end{frame}
 

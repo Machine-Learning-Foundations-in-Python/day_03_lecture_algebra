@@ -54,8 +54,8 @@
 \setbeamertemplate{caption}[default]
 \title{Linear Algebra for Machine Learning in Python}
 \date{\today}
-\institute{High Performance Computing and Analytics Lab}
-\author{Dr. Moritz Wolter}
+\institute{High Performance Computing and Analytics Lab, University of Bonn}
+\author{Moritz Wolter}
 
 \titlegraphic{\includegraphics[width=2.00cm]{UNI_Bonn_Logo_Standard_RZ.pdf}}
 
@@ -140,8 +140,25 @@
         \end{pmatrix}
       \end{align}
       \note{Demonstrate multiplication with the inverse by hand.
-      TODO
-      }
+      \begin{align}
+        \begin{pmatrix}
+          -1 & 0 & 0 \\
+           1 &-1 & 1 \\
+           1 & 0 &-1
+          \end{pmatrix}
+        \begin{pmatrix}
+          -1  &-0 &-0 \\
+          -2  &-1 &-1 \\
+          -1  &-0 &-1
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+           1  & 0 & 0 \\
+           0  & 1 & 0 \\
+           0  & 0 & 1
+        \end{pmatrix}
+      \end{align}
+    }
     \end{frame}
 
     \begin{frame}{Matrix inverse}
@@ -149,7 +166,7 @@
       \begin{align}
         \mathbf{A}\mathbf{A}^{-1} = \mathbf{I}.
       \end{align}
-      The process of computing the inverse is called gaussian elimination.
+      The process of computing the inverse is called Gaussian elimination.
       \note{
         Example on the board:
         \begin{align}
@@ -270,7 +287,7 @@
           \vdots & \vdots & \vdots & \ddots \\
         \end{vmatrix}        
       \end{align}
-      The determinant can be expandend along any column as long as the sign pattern is respected.
+      The determinant can be expanded along any column as long as the sign pattern is respected.
       }
     \end{frame}
 

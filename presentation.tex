@@ -371,14 +371,14 @@
     \end{frame}
 
     \begin{frame}{Problem Formulation}
-      A line has the form $dx + c$, with $c,x,d \in \mathbb{R}$. In matrix language, we could ask for every point to be on the line,
+      A line has the form $f(a) = da + c$, with $c,a,d \in \mathbb{R}$. In matrix language, we could ask for every point to be on the line,
       \begin{align}
         \begin{pmatrix}
-          1 & x_1 \\ 
-          1 & x_2 \\
-          1 & x_3 \\
+          1 & a_1 \\ 
+          1 & a_2 \\
+          1 & a_3 \\
           \vdots  & \vdots \\ 
-          1 & x_n \\
+          1 & a_n \\
         \end{pmatrix}
         \begin{pmatrix}
           c \\ d \\
@@ -419,7 +419,7 @@
       \begin{align}
         0 &= \nabla_x \dfrac{1}{2}|\mathbf{A}\mathbf{x} - \mathbf{b}|^2 \\
           &= \nabla_x \dfrac{1}{2}(\mathbf{A}\mathbf{x} - \mathbf{b})^T(\mathbf{A}\mathbf{x} - \mathbf{b}) \\
-          &= (\mathbf{A}\mathbf{x} - \mathbf{b})\mathbf{A}^T \\
+          &= \mathbf{A}^T (\mathbf{A}\mathbf{x} - \mathbf{b}) \\
           &= \mathbf{A}^T\mathbf{A}\mathbf{x} - \mathbf{A}^T\mathbf{b} \\
           \mathbf{A}^T\mathbf{b} &= \mathbf{A}^T\mathbf{A}\mathbf{x} \\
           (\mathbf{A}^T\mathbf{A})^{-1}\mathbf{A}^T\mathbf{b} &= \mathbf{x}  
@@ -443,11 +443,11 @@
       \begin{align}
         \underbrace{
         \begin{pmatrix}
-          1       & x_1^1    & x_1^2  & \dots & x_1^m  \\ 
-          1       & x_2^1    & x_2^2  & \dots & x_2^m  \\
-          1       & x_3^1    & x_3^2  & \dots & x_3^m  \\
+          1       & a_1^1    & a_1^2  & \dots & a_1^m  \\ 
+          1       & a_2^1    & a_2^2  & \dots & a_2^m  \\
+          1       & a_3^1    & a_3^2  & \dots & a_3^m  \\
           \vdots  & \vdots    & \vdots  & \ddots & \vdots \\ 
-          1       & x_n^1    & x_n^2  & \dots & x_n^m  \\
+          1       & a_n^1    & a_n^2  & \dots & a_n^m  \\
         \end{pmatrix}
         }_{\mathbf{A}}
         \underbrace{
@@ -531,7 +531,7 @@
     \end{align}
     Subtracting $\lambda \mathbf{x}$ leads to,
     \begin{align}
-      (\mathbf{A} - \lambda \mathbf{I}) \mathbf{x} = 0 \\
+      (\mathbf{A} - \lambda \mathbf{I}) \mathbf{x} = 0
     \end{align}
     The interesting solutions are those were $\mathbf{x} \neq 0$, which means
     \begin{align}
@@ -586,7 +586,7 @@
 
 
   \begin{frame}{Eigenvalue-Decomposition \cite{strang2009introduction}}
-  Eigenvalues let us look into the heart of a sqaure system-matrix $\mathbf{A} \in \mathbb{R}^{n,n}$.
+  Eigenvalues let us look into the heart of a square system-matrix $\mathbf{A} \in \mathbb{R}^{n,n}$.
     \begin{align}
       \mathbf{A} 
       = \mathbf{S}\begin{pmatrix}

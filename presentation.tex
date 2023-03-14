@@ -52,7 +52,7 @@
 
 \usetheme{metropolis}           % Use metropolis theme
 \setbeamertemplate{caption}[default]
-\title{Linear Algebra for Machine Learning in Python}
+\title{Linear Algebra for Machine Learning}
 \date{\today}
 \institute{High-Performance Computing and Analytics Lab, University of Bonn}
 \author{Moritz Wolter}
@@ -119,7 +119,7 @@
       \end{align}
       To compute $\mathbf{C}$ the elements in the rows of $\mathbf{A}$ are multiplied with the column elements of $\mathbf{C}$ and the products added,
       \begin{align}
-         c_{ik} = \sum_{j=1}^{m} a_{ij} \cdot b_{jk}.
+         c_{ik} = \sum_{j=1}^{n} a_{ij} \cdot b_{jk}.
       \end{align}
       \note{
         Define on the board:
@@ -151,9 +151,9 @@
            1 & 0 &-1
           \end{pmatrix}
         \begin{pmatrix}
-          -1  &-0 &-0 \\
+          -1  & 0 & 0 \\
           -2  &-1 &-1 \\
-          -1  &-0 &-1
+          -1  & 0 &-1
         \end{pmatrix}
         =
         \begin{pmatrix}
@@ -243,7 +243,8 @@
     \begin{frame}{Motivation of the determinant}
       \begin{itemize}
         \item The determinant contains lots of information about a matrix in a single number.
-        \item When a Matrix has a zero determinant, its inverse does not exist.
+        \item When a matrix has a zero determinant, a column is a linear combination of other
+          columns. Its inverse does not exist.
         \item We require determinants to find eigenvalues by hand.
       \end{itemize}
     \end{frame}
@@ -282,7 +283,9 @@
           a_{22} & a_{23}   \\
          \end{vmatrix}  
       \end{align}
-      \note{Example computation on the board:
+      \note{
+      Works for any row or column, as long as we respect the sign pattern.  
+      Example computation on the board:
       \begin{align}
       \begin{vmatrix}
           -1 & 0 & 0 \\
@@ -490,7 +493,7 @@
   \begin{frame}{Motivation}
     \begin{itemize}
       \item Is there a way to fix the previous example?
-      \item To do so we start from a rather peculiar observation.
+      \item To do so we start with a rather peculiar observation.
     \end{itemize}
   \end{frame}
 
@@ -655,7 +658,7 @@
     \end{pmatrix}
     \mathbf{U}^T \mathbf{b}_{noise}
   \end{align}
-  with $\mathbf{A} \in \mathbb{R}^{m,n}$, $\mathbf{U} \in \mathbb{R}^{m,m}$, $\mathbf{V} \in \mathbb{R}^{n,n}$, $\mathbf{F} \in \mathbb{R}^{m,m}$, $\Sigma^{\dagger} \in \mathbb{R}^{n,m}$
+  with $\mathbf{A} \in \mathbb{R}^{m,n}$, $\mathbf{U} \in \mathbb{R}^{m,m}$, $\mathbf{V} \in \mathbb{R}^{n,n}$, diagonal $\mathbf{F} \in \mathbb{R}^{m,m}$, $\Sigma^{\dagger} \in \mathbb{R}^{n,m}$
   and $\mathbf{b} \in \mathbb{R}^{n,1}$.
   \end{frame}
 
@@ -668,7 +671,6 @@
   \begin{frame}{Conclusion}
     \begin{itemize}
       \item True scientists know what linear can do for them!
-      %\footnote{Originally: "True Engineers know what linear can do for them." \url{https://onderwijsaanbod.kuleuven.be/syllabi/e/H0M82AE.htm#activetab=doelstellingen_idp41632}}
       \item Think about matrix shapes. If you are solving a problem, rule out all formulations where the shapes don't work.
       \item Regularization using the SVD is also known as Tikhonov regularization.
     \end{itemize}

@@ -605,7 +605,7 @@
   \end{frame}
 
   \begin{frame}{Singular-Value-Decomposition \cite{strang2009introduction}}
-    What about a non-square matrix $\mathbf{A} \in \mathbb{R}^{n,m}$? Idea:
+    What about a non-square matrix $\mathbf{A} \in \mathbb{R}^{m,n}$? Idea:
     \begin{align}
       \mathbf{A^T}\mathbf{A} = \mathbf{V}
       \begin{pmatrix}
@@ -618,7 +618,7 @@
       \begin{pmatrix}
       \sigma_1^2 & & \\
       & \ddots & & \\
-      & & \sigma_n^2   
+      & & \sigma_m^2   
       \end{pmatrix}
       \mathbf{U}^{-1}.
     \end{align}
@@ -626,17 +626,41 @@
     \begin{align}
       \mathbf{A} = \mathbf{U}\Sigma \mathbf{V}^T,
     \end{align}
-    with $\mathbf{A} \in \mathbb{R}^{m,n}$, $\mathbf{U} \in \mathbb{R}^{m,m}$, $\Sigma \in \mathbb{R}^{m,n}$ and $\mathbf{V} \in \mathbb{R}^{n,n}$ .
+    with $\mathbf{A} \in \mathbb{R}^{m,n}$, $\mathbf{U} \in \mathbb{R}^{m,m}$, $\Sigma \in \mathbb{R}^{m,n}$ and $\mathbf{V} \in \mathbb{R}^{n,n}$ . $\Sigma$'s diagonal is filled with the square root $\mathbf{A}^T \mathbf{A}$'s eigenvalues. 
   \end{frame}
 
+
   \begin{frame}{Singular values and matrix inversion \cite{golub1965calculating}}
+
+    The singular value matrix is a zero-padded diagonal matrix
+
     \begin{align}
-      \mathbf{A}^{\dagger} = \mathbf{V} \Sigma^\dagger \mathbf{U}^T = \mathbf{V} \begin{pmatrix}
-      \sigma_1^{-1} & & \\
-      & \ddots &  \\
-      & & \sigma_m^{-1} \\ \hline 
-      & 0 & \\
-      \end{pmatrix} \mathbf{U}^T
+      \mathbf{A} = \mathbf{U} \Sigma \mathbf{V}^T = \mathbf{U}
+        \left( 
+        \begin{array}{c c c}
+        \sigma_1 &        &           \\
+                 & \ddots &            \\
+                 &        &  \sigma_n \\ \hline 
+                 &    0   &             \\
+        \end{array}
+        \right)
+      \mathbf{V}^T .
+    \end{align}
+
+    Inverting the sigmas and transposing yields the pseudoinverse
+
+    \begin{align}
+      \mathbf{A}^{\dagger} = \mathbf{V} \Sigma^\dagger \mathbf{U}^T =
+      \mathbf{V}
+      \left( 
+      \begin{array}{c c c}
+        \sigma_1^{-1} &        &           \\
+                 & \ddots &                 \\
+                 &        &  \sigma_n^{-1} \\ \hline 
+                 &    0   &                  \\
+      \end{array}
+      \right)^T
+      \mathbf{U}^T .
     \end{align}
   \end{frame}
 
@@ -650,16 +674,11 @@
   Singular values $\sigma_i < \epsilon$ are filtered.
   Expressing equation \ref{eq:reg} using matrix notation:
   \begin{align}
-    \mathbf{x}_{reg}= \mathbf{V} \mathbf{F} \begin{pmatrix}
-      \sigma_1^{-1} & & & \\
-      &  \ddots & \\
-      &  & \sigma_m^{-1} \\ \hline
-      & 0 &
-    \end{pmatrix}
+    \mathbf{x}_{reg}= \mathbf{V} \mathbf{F} \Sigma^{\dagger}
     \mathbf{U}^T \mathbf{b}_{noise}
   \end{align}
   with $\mathbf{A} \in \mathbb{R}^{m,n}$, $\mathbf{U} \in \mathbb{R}^{m,m}$, $\mathbf{V} \in \mathbb{R}^{n,n}$, diagonal $\mathbf{F} \in \mathbb{R}^{m,m}$, $\Sigma^{\dagger} \in \mathbb{R}^{n,m}$
-  and $\mathbf{b} \in \mathbb{R}^{n,1}$.
+  and $\mathbf{b} \in \mathbb{R}^{n,1}$. $\mathbf{F}$ has the $f_i$ in its diagonal.
   \end{frame}
 
   \begin{frame}{Regularized solution}

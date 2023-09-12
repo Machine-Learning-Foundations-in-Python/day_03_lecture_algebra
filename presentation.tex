@@ -126,7 +126,7 @@
         \begin{itemize}
           \item Dot product $\mathbf{a} \cdot \mathbf{b} = a_1 b_1 + a_2 b_2 + \dots + a_n b_n$ for two vectors $\mathbf{a}, \mathbf{b} \in \mathbb{R}^n$.
           \item Row times column view \cite{strang2009introduction}: 
-            
+          \item Use \texttt{@} in numpy.
         \end{itemize}
         \centering
         \includegraphics[width=.5\linewidth]{figures/Matrix_multiplication_diagram_2.png}
@@ -221,6 +221,10 @@
         0 & 1 \\ 
       \end{pmatrix}
       \end{align}
+
+      The inverse exists for regular matrices.
+      A Matrix $\mathbf{A}$ is regular if $\det(\mathbf{A}) \neq 0$.
+      No eigenvalue can be zero. 
       }
     \end{frame}
 
@@ -313,7 +317,7 @@
        &\;\;\;\;\;  (0 \cdot (-1) - 0 \cdot 0) + 0 \cdot 1 -(-1) \cdot 0 \\
        &= -1
       \end{align}
-
+      In numpy call \texttt{np.det}.
     }
     \end{frame}
 
@@ -418,7 +422,7 @@
       \begin{align}
         \min_x \dfrac{1}{2}|\mathbf{A}\mathbf{x} - \mathbf{b}|^2 \\
       \end{align}
-      At the optimum we expect,
+      Motivation: At the optimum we expect,
       \begin{align}
         0 &= \nabla_x \dfrac{1}{2}|\mathbf{A}\mathbf{x} - \mathbf{b}|^2 \\
           &= \nabla_x \dfrac{1}{2}(\mathbf{A}\mathbf{x} - \mathbf{b})^T(\mathbf{A}\mathbf{x} - \mathbf{b}) \\
@@ -541,7 +545,11 @@
       \det(\mathbf{A} - \lambda \mathbf{I}) = 0 
     \end{align}
 
-  \note{On the board, compute the eigenvalues and vectors for the initial example.
+  \note{
+    Why do we want the identity in $\mathbf{A} - \lambda \mathbf{I}$?
+    Because we are not allowed to subtract numbers from matrices.
+    
+    On the board, compute the eigenvalues and vectors for the initial example.
   \begin{align}
   \mathbf{A}
   = \begin{pmatrix}

@@ -1,7 +1,7 @@
 % no notes
-\documentclass{beamer}
+%\documentclass{beamer}
 % notes and slides
-%\documentclass[notes]{beamer}
+\documentclass[notes]{beamer}
 % notes only
 %\documentclass[notes=only]{beamer}
 \usepackage{graphicx} % Allows including images
@@ -385,7 +385,7 @@
           1 & a_2 \\
           1 & a_3 \\
           \vdots  & \vdots \\ 
-          1 & a_n \\
+          1 & a_m \\
         \end{pmatrix}
         \begin{pmatrix}
           c \\ d \\
@@ -395,11 +395,11 @@
           p_1 \\
           p_2 \\
           \vdots \\ 
-          p_n  
+          p_m  
         \end{pmatrix}.
       \end{align}
-      We can treat polynomials as vectors, too! The coordinates populate the matrix rows in $\mathbf{A} \in \mathbb{R}^{n_p \times 2}$, and the coefficients
-      appear in $\mathbf{x} \in \mathbb{R}^{2}$, with the points we would like to model in $\mathbf{b} \in \mathbb{R}^{n_p}$.
+      We can treat polynomials as vectors, too! The coordinates populate the matrix rows in $\mathbf{A} \in \mathbb{R}^{m \times 2}$, and the coefficients
+      appear in $\mathbf{x} \in \mathbb{R}^{2}$, with the points we would like to model in $\mathbf{b} \in \mathbb{R}^{m}$.
       The problem now appears in matrix form and can be solved using linear algebra!
     \end{frame}
 
@@ -450,16 +450,16 @@
       \begin{align}
         \underbrace{
         \begin{pmatrix}
-          1       & a_1^1    & a_1^2  & \dots & a_1^m  \\ 
-          1       & a_2^1    & a_2^2  & \dots & a_2^m  \\
-          1       & a_3^1    & a_3^2  & \dots & a_3^m  \\
+          1       & a_1^1    & a_1^2  & \dots & a_1^n  \\ 
+          1       & a_2^1    & a_2^2  & \dots & a_2^n  \\
+          1       & a_3^1    & a_3^2  & \dots & a_3^n  \\
           \vdots  & \vdots    & \vdots  & \ddots & \vdots \\ 
-          1       & a_n^1    & a_n^2  & \dots & a_n^m  \\
+          1       & a_m^1    & a_m^2  & \dots & a_m^n  \\
         \end{pmatrix}
         }_{\mathbf{A}}
         \underbrace{
         \begin{pmatrix}
-          c_1 \\ c_2 \\ \vdots \\ c_m  
+          c_1 \\ c_2 \\ \vdots \\ c_n  
         \end{pmatrix}
         }_{\mathbf{x}}
         =
@@ -468,7 +468,7 @@
           p_1 \\
           p_2 \\
           \vdots \\ 
-          p_n  
+          p_m  
         \end{pmatrix}
         }_{\mathbf{b}}
         .
@@ -478,7 +478,7 @@
     \end{frame}
 
     \begin{frame}{Overfitting}
-      The figure below depicts the solution for a polynomial of 7th degree, that is $m=7$.
+      The figure below depicts the solution for a polynomial of 7th degree, that is $n=7$.
       \begin{figure}
         \centering
         \includestandalone[scale=.9]{./figures/overfitting}
